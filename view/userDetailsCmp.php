@@ -1,6 +1,7 @@
 <?php
 include_once("model/user.php");
-$user =new user(1, "Nom usuari", "correu@correu.com", "https://gravatar.com/avatar/b3b00f7ff897d0761582eac881253706?s=200&d=robohash&r=x");
+$user = new user();
+$user = $user->getByName("guillermo");
 ?>
 
 <article class="panel is-primary">
@@ -10,6 +11,8 @@ $user =new user(1, "Nom usuari", "correu@correu.com", "https://gravatar.com/avat
     <div class="box">
         <div>
             <h2><?= $user->getName() ?></h2>
+            <h2><?= $user->getUsername() ?></h2>
+            <h2><?= $user->getAddress() ?></h2>
             <h3><?= $user->getEmail() ?></h3>
             <div style="text-align: center;"><img src=<?= $user->getAvatarImage() ?> width="200" height="200"></div>
         </div>
