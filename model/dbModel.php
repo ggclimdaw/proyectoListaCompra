@@ -1,5 +1,4 @@
 <?php
-
 class DbModel
 {
     protected Database $db;

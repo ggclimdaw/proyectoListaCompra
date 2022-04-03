@@ -3,20 +3,24 @@ require_once("model/dbModel.php");
 class User extends DbModel{
     private int $id;
     private string $name;
+    private string $username;
+    private string $password;
+    private string $address;
     private string $email;
     private string $avatarImage;
-    private string $username;
-    private string $address;
+    
+    
 
 
-    public function __construct(string $name = '', string $email = '', string $avatarImage = '', string $username = '', string $address ='')
+    public function __construct(string $name = '', string $username = '', string $password = '' , string $address ='', string $email = '', string $avatarImage = 'https://gravatar.com/avatar/b3b00f7ff897d0761582eac881253706?s=200&d=robohash&r=x')
     {
         parent::__construct();
         $this->name = $name;
-        $this->email = $email;
-        $this->avatarImage = $avatarImage;
         $this->username = $username;
-        $this->address = $address;        
+        $this->password = $password;
+        $this->address = $address;
+        $this->email = $email;
+        $this->avatarImage = $avatarImage;             
     }
 
     public function getByName(string $name)
@@ -27,25 +31,103 @@ class User extends DbModel{
             $selectedUser = $query->fetch(PDO::FETCH_ASSOC);
             $user = new User();
             if ($query->rowCount() > 0){
-              
                 $user->setId($selectedUser['id']);
                 $user->setName($selectedUser['name']);
-                $user->setEmail($selectedUser['email']);
-                $user->setAvatarImage($selectedUser['avatarImage']);
                 $user->setUsername($selectedUser['username']);
                 $user->setAddress($selectedUser['address']);
+                $user->setEmail($selectedUser['email']);
+                $user->setAvatarImage($selectedUser['avatarImage']);               
             }
             return $user;
-
-        }catch (PDOException $e)
-        {
+        }catch (PDOException $e) {
             echo $e;
         }
     }
 
+    public function create()
+    {
+        try {
+            $query = $this->connectToDb()->prepare('INSERT INTO user (name, username, password, email, avatarImage) VALUES(:name, :username, :password, :address, :email, :avatarImage)');
+            $query->execute([
+                'name'  => $this->name,
+                'username'  => $this->username,
+                'password'  => $this->password,
+                'address'  => $this->address,
+                'email'      => $this->email,
+                'avatarImage'    => $this->avatarImage
+            ]);
+            return true;
+        }catch (PDOException $e){
+            echo $e;
+        }
+    }
+
+    public function getUserByUserName(string $userName)
+    {
+        try {
+            $query = $this->connectToDb()->prepare('SELECT * FROM user WHERE username = :username');
+            $query->execute(['username'=> $userName]);
+            $selectedUser = $query->fetch(PDO::FETCH_ASSOC);
+            $user = new User();
+            if ($query->rowCount() > 0){
+                $user->setId($selectedUser['id']);
+                $user->setName($selectedUser['name']);
+                $user->setUsername($selectedUser['username']);
+                $user->setPassword($selectedUser['password']);
+                $user->setAddress($selectedUser['address']);
+                $user->setEmail($selectedUser['email']);
+                $user->setAvatarImage($selectedUser['avatarImage']);
+            }
+            return $user;
+
+        }catch (PDOException $e) {
+            echo $e;
+            return null;
+        }
+    }
+
+    public function update(string $oldUsername, string $newName, string $newUsername, string $newPassword, String $newAddress, string $newEmail)
+    {
+        try {
+
+            if ($newPassword == '') {
+                $query = $this->connectToDb()->prepare('UPDATE user SET username = :username, name = :name, address = :address, email = :email WHERE username = :oldUsername');
+                $query->execute([
+                'name' => $newName,
+                'username' => $newUsername,
+                'address' => $newAddress,
+                'email' => $newEmail,
+                'oldUserName' => $oldUsername
+                ]);
+            } else {
+                $query = $this->connectToDb()->prepare('UPDATE user SET username = :username, password = :password, name = :name, address = :address, email = :email WHERE username = :oldUsername');
+                $query->execute([
+                'name' => $newName,
+                'username' => $newUsername,
+                'password' => $newPassword,
+                'address' => $newAddress,
+                'email' => $newEmail,
+                'oldUserName' => $oldUsername
+                ]);
+            }
+            return true;
+        }catch (PDOException $e){
+            echo $e;
+            return false;
+        }
+  
+    }
+ 
 
 
-
+    public function getPassword()
+    {
+            return $this->password;
+    }
+    public function setPassword(string $password)
+    {
+            $this->password = $password;
+    }
     public function getId(){
         return $this->id;
     }
@@ -77,22 +159,12 @@ class User extends DbModel{
     public function setAvatarImage(string $avatarImage){
         $this->avatarImage = $avatarImage;
     }
-
-
-
-    /**
-     * Get the value of username
-     */ 
     public function getUsername()
     {
         return $this->username;
     }
 
-    /**
-     * Set the value of username
-     *
-     * @return  self
-     */ 
+   
     public function setUsername($username)
     {
         $this->username = $username;
@@ -115,6 +187,9 @@ class User extends DbModel{
     {
         $this->address = $address;
     }
+
+       
+       
 }
 
 ?>
