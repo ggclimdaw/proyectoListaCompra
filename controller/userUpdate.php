@@ -11,6 +11,7 @@ if (!empty($_POST)) {
         $usernameUsuario = $_POST["username"];
         $direccionUsuario = $_POST["address"];
         $emailUsuario = $_POST["email"];
+        $direccionUsuario = $_POST["address"];
         $hashed_password = '';
         if (!empty($_POST["password"])) {
             $passwordUsuario = $_POST["password"];

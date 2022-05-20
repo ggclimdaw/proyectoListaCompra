@@ -1,14 +1,10 @@
 <?php include_once('view/headerCmp.php');
-    /* //Activitat 3 punt 7
+    //Activitat 3 punt 7
      $user = getUserSession();
     if ($user == null) {
         header('Location: ' . constant('URL_BASE') . 'loginPage.php');
     }
-    */
 ?>
-
-
-
 
 <!-- Sección principal -->
 <section class="section" id="seccionPrincipal">

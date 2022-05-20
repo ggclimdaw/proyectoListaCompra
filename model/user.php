@@ -12,15 +12,23 @@ class User extends DbModel{
     
 
 
-    public function __construct(string $name = '', string $username = '', string $password = '' , string $address ='', string $email = '', string $avatarImage = 'https://gravatar.com/avatar/b3b00f7ff897d0761582eac881253706?s=200&d=robohash&r=x')
-    {
+    public function __construct(
+        string $name = '',
+        string $username = '',
+        string $password = '' ,
+        string $address ='',
+        string $email = '',
+        string $avatarImage = 'https://gravatar.com/avatar/b3b00f7ff897d0761582eac881253706?s=200&d=robohash&r=x',
+        int $id = -1
+    ){
         parent::__construct();
         $this->name = $name;
         $this->username = $username;
         $this->password = $password;
         $this->address = $address;
         $this->email = $email;
-        $this->avatarImage = $avatarImage;             
+        $this->avatarImage = $avatarImage;
+        $this->id = $id;             
     }
 
     public function getByName(string $name)
@@ -47,7 +55,7 @@ class User extends DbModel{
     public function create()
     {
         try {
-            $query = $this->connectToDb()->prepare('INSERT INTO user (name, username, password, email, avatarImage) VALUES(:name, :username, :password, :address, :email, :avatarImage)');
+            $query = $this->connectToDb()->prepare('INSERT INTO user (name, username, password, address, email, avatarImage) VALUES(:name, :username, :password, :address, :email, :avatarImage)');
             $query->execute([
                 'name'  => $this->name,
                 'username'  => $this->username,
@@ -56,9 +64,10 @@ class User extends DbModel{
                 'email'      => $this->email,
                 'avatarImage'    => $this->avatarImage
             ]);
-            return true;
+            return true;            
         }catch (PDOException $e){
             echo $e;
+            return false;
         }
     }
 
@@ -91,7 +100,7 @@ class User extends DbModel{
         try {
 
             if ($newPassword == '') {
-                $query = $this->connectToDb()->prepare('UPDATE user SET username = :username, name = :name, address = :address, email = :email WHERE username = :oldUsername');
+                $query = $this->connectToDb()->prepare('UPDATE user SET username = :username, name = :name, address = :address, email = :email WHERE username = :oldUserName');
                 $query->execute([
                 'name' => $newName,
                 'username' => $newUsername,
@@ -100,7 +109,7 @@ class User extends DbModel{
                 'oldUserName' => $oldUsername
                 ]);
             } else {
-                $query = $this->connectToDb()->prepare('UPDATE user SET username = :username, password = :password, name = :name, address = :address, email = :email WHERE username = :oldUsername');
+                $query = $this->connectToDb()->prepare('UPDATE user SET username = :username, password = :password, name = :name, address = :address, email = :email WHERE username = :oldUserName');
                 $query->execute([
                 'name' => $newName,
                 'username' => $newUsername,
@@ -165,25 +174,17 @@ class User extends DbModel{
     }
 
    
-    public function setUsername($username)
+    public function setUsername(string $username)
     {
         $this->username = $username;
     }
 
-    /**
-     * Get the value of address
-     */ 
     public function getAddress()
     {
         return $this->address;
     }
 
-    /**
-     * Set the value of address
-     *
-     * @return  self
-     */ 
-    public function setAddress($address)
+    public function setAddress(string $address)
     {
         $this->address = $address;
     }

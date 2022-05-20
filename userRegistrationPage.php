@@ -6,35 +6,35 @@
 
             <!-- Titulo del formulario -->
             <p class="panel-heading" style="text-align:center;">
-                Registro de nuevo usuario
+            <?= getTraslationValue("REGISTRO_USUARIO") ?>
             </p>
         <div class="box">
             <!-- Sección de formulario -->
             <form action="" method="post">
                 <div class="field">
-                    <label class="label">Nombre y apellidos</label>
+                    <label class="label"><?= getTraslationValue("NOMBRE_APELLIDOS") ?></label>
                     <input class="input" type="text" name="name" placeholder="Nombre y apellidos">
                 </div>
                 <div class="field">
-                    <label class="label">Username</label>
+                    <label class="label"><?= getTraslationValue("NOMBRE_USUARIO") ?></label>
                     <input class="input" type="text" name="username" placeholder="Nombre de usuario">
                 </div>
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label"><?= getTraslationValue("EMAIL") ?></label>
                     <input class="input" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="field">
-                    <label class="label">Direccion</label>
+                    <label class="label"><?= getTraslationValue("DIRECCION") ?></label>
                     <input class="input" type="text" name="address" placeholder="Dirección">
                 </div>
                 <div class="field">
-                    <label class="label">Password</label>
+                    <label class="label"><?= getTraslationValue("PASSWORD") ?></label>
                     <input class="input" type="password" name="password" placeholder="Password">
                 </div>
 
                 <div class="buttons is-centered">
-                    <button class="button is-success" type="submit">Registrar</button>
-                    <a class="button is-link is-light" onclick="window.location.href = './index.php'">Cancelar</a>
+                    <button class="button is-success" type="submit"><?= getTraslationValue("REGISTRARSE") ?></button>
+                    <a class="button is-link is-light" onclick="window.location.href = './index.php'"><?= getTraslationValue("CANCELAR") ?></a>
                 </div>
             </form>
         </div>

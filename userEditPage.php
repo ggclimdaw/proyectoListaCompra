@@ -4,6 +4,7 @@ include_once("view/headerCmp.php");
 $user = getUserSession();
 if ($user == null) {
     $user = new User();
+    header('Location: ' . constant('URL_BASE') . 'loginPage.php');
 }
 ?>
 
@@ -18,30 +19,30 @@ if ($user == null) {
             <!-- Sección de formulario -->
             <form action="" method="post">
                 <div class="field">
-                    <label class="label">Nombre y apellidos</label>
+                    <label class="label"><?= getTraslationValue("NOMBRE_APELLIDOS") ?></label>
                     <input class="input" type="text" name="name" placeholder="Nombe y apellidos" value="<?= $user->getName() ?>">  
                 </div>
                 <div class="field">
-                    <label class="label">Username</label>
+                    <label class="label"><?= getTraslationValue("NOMBRE_USUARIO") ?></label>
                     <input class="input" type="text" name="username" placeholder="Nombe de usuario" value="<?= $user->getUserName() ?>">  
                 </div>
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label"><?= getTraslationValue("EMAIL") ?></label>
                     <input class="input" type="email" name="email" placeholder="Email" value="<?= $user->getEmail() ?>">  
                 </div>
                 <div class="field">
-                    <label class="label">Direccion</label>
+                    <label class="label"><?= getTraslationValue("DIRECCION") ?></label>
                     <input class="input" type="text" name="address" placeholder="Dirección" value="<?= $user->getAddress() ?>">  
                 </div>
                 <div class="field">
-                    <label class="label">Nuevo Password</label>
+                    <label class="label"><?= getTraslationValue("NEW_PASSWORD") ?></label>
                     <input class="input" type="password" name="password" placeholder="Password">
-                    <p class="help">* Introducir uno si se desea modificar el existente. Dejar en blanco en caso contrario</p>  
+                    <p class="help"><?= getTraslationValue("NOTA_PASSWORD") ?></p>  
                 </div>
 
                 <div class="buttons is-centered">
-                    <button class="button is-primary" type="submit">modificar</button>
-                    <a class="button is-link is-light" onclick="window.location.href = './index.php'">Cancelar</a>  
+                    <button class="button is-primary" type="submit"><?= getTraslationValue("MODIFICAR") ?></button>
+                    <a class="button is-link is-light" onclick="window.location.href = './index.php'"><?= getTraslationValue("CANCELAR") ?></a>  
                 </div>
             </form>
         </div>

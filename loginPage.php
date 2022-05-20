@@ -6,7 +6,7 @@
 
     <!-- Titulo del formulario -->
     <p class="panel-heading" style="text-align: center;">
-        Log in 
+    <?= getTraslationValue("LOG_IN") ?>
     </p>
     <div class="box">
         <!-- Seccion de formulario -->
@@ -23,14 +23,14 @@
                 </div>
             </div>
             <div class="buttons is-centered">
-                <button class="button is-primary">Acceder</button>
+                <button class="button is-primary"><?= getTraslationValue("LOG_IN") ?></button>
             </div>
         </form>
         <br />
 
         <!-- Sección con opcion de registro -->
         <div>
-            <mall><em>¿No dispones de una cuenta ya?, <a href="./userRegistrationPage.php">Regístrate</a></em></mall>
+            <mall><em><?= getTraslationValue("DISPONES_CUENTA") ?>, <a href="./userRegistrationPage.php"><?= getTraslationValue("REGISTRARSE") ?></a></em></mall>
         </div>
     </div>
     </article>

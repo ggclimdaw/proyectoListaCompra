@@ -12,14 +12,11 @@
 ?>
 
 <article class="panel is-primary">
-    <p class="panel-heading">
-        Información de usuario
-    </p>
+    <p class="panel-heading" style="text-align: center;">
+    <?= getTraslationValue("INFORMACION_USUARIO") ?></p>
     <div class="box">
         <div>
-            <h2><?= $user->getName() ?></h2>
-            <h2><?= $user->getUsername() ?></h2>
-            <h2><?= $user->getAddress() ?></h2>
+            <h2><b><?= $user->getName() ?></b></h2>
             <h3><?= $user->getEmail() ?></h3>
             <div style="text-align: center;"><img src=<?= $user->getAvatarImage() ?> width="200" height="200"></div>
         </div>
@@ -27,7 +24,7 @@
         if ($userInSession) {
         ?>
             <div style="text-align: right;">
-                <button class="button is-rounded" title="Editar" onclick="window.location.href = './userEditPage.php'">/</button>
+                <button class="button is-rounded" title="Editar" onclick="window.location.href = './userEditPage.php'">✏️</button>
             </div>  
         <?php  
         }

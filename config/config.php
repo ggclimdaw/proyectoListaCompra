@@ -7,6 +7,7 @@ define('USER', 'guillermo');
 define('PASSWORD', "plou22arA");
 define('CHARSET', 'utf8');
 define('AUTHOR', 'Guillermo');
+define('DEFAULT_LANGUAGE', 'es');
 // Fins ací activitat 2
 
 define('URL_BASE', 'http://' . $_SERVER['HTTP_HOST'] . '/' . 'proyectoListaCompra/');
